@@ -20,7 +20,6 @@ public class Mover : MonoBehaviour {
 	void Update () {
 		for(int i = 0; i < percent.Length; i++)
         {
-            Debug.Log(Time.deltaTime);
             percent[i] += Time.deltaTime / time;
             if (percent[i] > 1)
                 percent[i] -= 1;
