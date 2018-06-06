@@ -4,19 +4,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
+    public SaveObject saveObject;
+    public IntVariable currentLevel;
     public void Continue()
     {
         Scene scene = SceneManager.GetActiveScene();
-        if (scene.buildIndex == 0)
-            SceneManager.LoadScene(1);
+
+        if (currentLevel == null)
+            LoadLevel(1);
+        else
+            LoadLevel(currentLevel.RuntimeValue);
     }
     public void Quit()
     {
-        Scene scene = SceneManager.GetActiveScene();
-        if (scene.buildIndex == 0)
-            Application.Quit();
-        else
-            SceneManager.LoadScene(0);
+        Application.Quit();
+    }
 
+    public void LoadLevel(int level)
+    {
+        SceneManager.LoadScene(level);
     }
 }

@@ -24,6 +24,8 @@ public class Jumper : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (Input.GetButtonDown("Menu"))
+            SceneManager.LoadScene(0);
         if (rb == null)
             throw new System.MissingMemberException("RigidBody2D missing!");
         if (Input.GetButtonDown("JumpRight"))

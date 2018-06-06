@@ -3,18 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class ColorLayer : MonoBehaviour {
     public ColorPallet.Layer layer;
     public ColorPallet.Layer highlight = ColorPallet.Layer.highlight;
     public ColorPallet pallet;
-    
-	// Use this for initialization
-	void Start () {
+    public IntVariable currentLevel;
+
+    // Use this for initialization
+    void Start() {
+        ApplyPallet();
+    }
+
+    public void ApplyPallet()
+    {
+        float time;
+        if (currentLevel != null)
+            time = ((float)currentLevel.RuntimeValue + 1f) / (float)SceneManager.sceneCountInBuildSettings;
+        else
+        {
+            Scene scene = SceneManager.GetActiveScene();
+            time = ((float)scene.buildIndex + 1f) / (float)SceneManager.sceneCountInBuildSettings;
+        }
+        ApplyPallet(time);
+    }
+    public void ApplyPallet(float time)
+    {
         if (pallet == null)
             return;
-        Scene scene = SceneManager.GetActiveScene();
-        float time = ((float)scene.buildIndex+1f) / (float)SceneManager.sceneCountInBuildSettings;
 
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         if(spriteRenderer != null)
@@ -32,12 +49,18 @@ public class ColorLayer : MonoBehaviour {
         {
             camera.backgroundColor = pallet.GetColor(layer, time);
         }
+
         TextMeshPro textMeshPro = GetComponent<TextMeshPro>();
         if (textMeshPro != null)
             textMeshPro.color = pallet.GetColor(layer, time);
+
         TextMeshProUGUI textMeshProGui = GetComponent<TextMeshProUGUI>();
         if (textMeshProGui != null)
             textMeshProGui.color = pallet.GetColor(layer, time);
+
+        Image image = GetComponent<Image>();
+        if (image != null)
+            image.color = pallet.GetColor(layer, time);
     }
 
 }

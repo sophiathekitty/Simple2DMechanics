@@ -14,7 +14,6 @@ public class ColorPallet : ScriptableObject {
     public enum Layer {background,walls,player,highlight,hazard,gate}
     public Color GetColor(Layer layer, float time = 0)
     {
-        Debug.Log(time);
         switch (layer)
         {
             case Layer.walls:

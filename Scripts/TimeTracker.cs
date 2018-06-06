@@ -8,21 +8,28 @@ public class TimeTracker : MonoBehaviour {
     public bool resetTimeOnStart;
     public bool trackTime = true;
     TextMeshProUGUI text;
+    TextMeshPro text2;
     // Use this for initialization
     void Start () {
         text = GetComponent<TextMeshProUGUI>();
+        text2 = GetComponent<TextMeshPro>();
         if (resetTimeOnStart)
             secondsPlayed.RuntimeValue = 0;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        if (text != null)
+            text.text = FormatTime(secondsPlayed.RuntimeValue);
+        else if (text2 != null)
+            text2.text = FormatTime(secondsPlayed.RuntimeValue);
+    }
+
+    // Update is called once per frame
+    void Update () {
         if(trackTime)
             secondsPlayed.RuntimeValue += Time.deltaTime;
-        if (text == null)
-            return;
-        text.text = FormatTime(secondsPlayed.RuntimeValue);
-	}
+        if (text != null)
+            text.text = FormatTime(secondsPlayed.RuntimeValue);
+        else if (text2 != null)
+            text2.text = FormatTime(secondsPlayed.RuntimeValue);
+    }
 
     public string FormatTime(float time)
     {
