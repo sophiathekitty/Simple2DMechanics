@@ -70,11 +70,12 @@ public class Gate : MonoBehaviour {
         targetHeight = startHeight;
         boxCollider.transform.localScale = new Vector3(boxCollider.transform.localScale.x, targetHeight, boxCollider.transform.localScale.z);
         Debug.Log(keys.Count);
-        foreach (KeyValuePair<Key, bool> key in keys)
+        
+        foreach (Key key in keys.Keys)
         {
-            if(keys.ContainsKey(key.Key))
-                keys[key.Key] = false;
-            key.Key.gameObject.SetActive(true);
+            if(keys.ContainsKey(key))
+                keys[key] = false;
+            key.gameObject.SetActive(true);
         }
     }
 }

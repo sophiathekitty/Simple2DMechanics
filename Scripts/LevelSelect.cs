@@ -20,8 +20,8 @@ public class LevelSelect : MonoBehaviour {
         foreach(GameObject g in gameObjects)
         {
             int level = int.Parse(g.name);
-            ColorLayer colorLayer = g.GetComponent<ColorLayer>();
-            if(colorLayer != null)
+            ColorLayer[] colorLayers = g.GetComponentsInChildren<ColorLayer>();
+            foreach(ColorLayer colorLayer in colorLayers)
                 colorLayer.ApplyPallet(((float)level - 1f) / ((float)SceneManager.sceneCountInBuildSettings-1f));
         }
     }
