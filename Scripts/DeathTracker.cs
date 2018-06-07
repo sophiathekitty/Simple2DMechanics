@@ -21,6 +21,7 @@ public class DeathTracker : MonoBehaviour {
     public void OnPlayerDeath()
     {
         deaths.RuntimeValue++;
+        Debug.Log("player dead");
         if (text != null)
             text.text = deaths.RuntimeValue.ToString();
         else if (text2 != null)

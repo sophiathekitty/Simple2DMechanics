@@ -20,11 +20,11 @@ public class ColorLayer : MonoBehaviour {
     {
         float time;
         if (currentLevel != null)
-            time = ((float)currentLevel.RuntimeValue + 1f) / (float)SceneManager.sceneCountInBuildSettings;
+            time = ((float)currentLevel.RuntimeValue - 1f) / ((float)SceneManager.sceneCountInBuildSettings - 1f);
         else
         {
             Scene scene = SceneManager.GetActiveScene();
-            time = ((float)scene.buildIndex + 1f) / (float)SceneManager.sceneCountInBuildSettings;
+            time = ((float)scene.buildIndex - 1f) / ((float)SceneManager.sceneCountInBuildSettings - 1f);
         }
         ApplyPallet(time);
     }

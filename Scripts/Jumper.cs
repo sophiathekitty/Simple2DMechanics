@@ -9,6 +9,7 @@ public class Jumper : MonoBehaviour {
     public float jumpVirtical;
     public bool reloadOnDeath;
     public GameEvent onDeath;
+    public SaveObject saveObject;
     private Rigidbody2D rb;
     private Vector3 startPos;
     private ParticleSystem ps;
@@ -25,7 +26,11 @@ public class Jumper : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (Input.GetButtonDown("Menu"))
+        {
+            if (saveObject != null)
+                saveObject.SaveData();
             SceneManager.LoadScene(0);
+        }
         if (rb == null)
             throw new System.MissingMemberException("RigidBody2D missing!");
         if (Input.GetButtonDown("JumpRight"))

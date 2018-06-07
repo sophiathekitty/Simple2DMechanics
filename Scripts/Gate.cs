@@ -45,7 +45,6 @@ public class Gate : MonoBehaviour {
     {
         if (keys.ContainsKey(key))
             keys[key] = true;
-
         if (!Unlocked)
             return;
         targetHeight = 0.1f;
@@ -55,6 +54,7 @@ public class Gate : MonoBehaviour {
     {
         if(collision.tag == "Player" && Unlocked)
         {
+            Debug.Log("gate passed");
             targetHeight = 0f;
             gatePassed = true;
         }
@@ -63,15 +63,18 @@ public class Gate : MonoBehaviour {
     // player dead
     public void OnPlayerDead()
     {
-        if (!resetOnDeath && gatePassed)
+        Debug.Log(gatePassed);
+        if (!resetOnDeath || gatePassed)
             return;
         boxCollider.enabled = true;
         targetHeight = startHeight;
         boxCollider.transform.localScale = new Vector3(boxCollider.transform.localScale.x, targetHeight, boxCollider.transform.localScale.z);
+        Debug.Log(keys.Count);
         foreach (KeyValuePair<Key, bool> key in keys)
         {
+            if(keys.ContainsKey(key.Key))
+                keys[key.Key] = false;
             key.Key.gameObject.SetActive(true);
-            keys[key.Key] = false;
         }
     }
 }

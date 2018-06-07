@@ -8,6 +8,8 @@ public class CurrentLevel : MonoBehaviour {
     public IntVariable currentLevel;
     private TextMeshProUGUI text;
     public bool setCurrentLevel = true;
+    public bool resetCurrentLevel = false;
+    public SaveObject saveObject;
     // Use this for initialization
     void Start()
     {
@@ -15,6 +17,10 @@ public class CurrentLevel : MonoBehaviour {
         Debug.Log(currentLevel.RuntimeValue);
         if (currentLevel != null && setCurrentLevel)
             currentLevel.RuntimeValue = scene.buildIndex;
+        else if (currentLevel != null && resetCurrentLevel)
+            currentLevel.RuntimeValue = currentLevel.InitialValue;
+        if (saveObject != null)
+            saveObject.SaveData();
         text = GetComponent<TextMeshProUGUI>();
         if (text != null)
             text.SetText(currentLevel.RuntimeValue.ToString());

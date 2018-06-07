@@ -30,8 +30,7 @@ public class PalletSelect : MonoBehaviour {
     public void SetPallet(int pallet)
     {
 
-        palletDatabase.currentPallet = pallet;
-        Debug.Log(pallet);
+        palletDatabase.currentPallet.RuntimeValue = pallet;
         PalletSwap swap = (PalletSwap)GameObject.FindObjectOfType(typeof(PalletSwap));
         if (swap != null)
             swap.SwapPallets();
