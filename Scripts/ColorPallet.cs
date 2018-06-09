@@ -4,6 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu()]
 public class ColorPallet : ScriptableObject {
+    public bool locked;
     public Gradient background;
     public Gradient walls;
     public Gradient player;

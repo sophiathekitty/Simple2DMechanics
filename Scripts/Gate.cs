@@ -6,7 +6,8 @@ public class Gate : MonoBehaviour {
     public bool resetOnDeath = true;
     private bool gatePassed = false;
     public BoxCollider2D boxCollider;
-    private Dictionary<Key,bool> keys = new Dictionary<Key, bool>();
+    private Key key;
+    private bool locked = true;
     private float startHeight;
     private float targetHeight;
     // unlocked
@@ -14,10 +15,7 @@ public class Gate : MonoBehaviour {
     {
         get
         {
-            foreach (KeyValuePair<Key, bool> key in keys)
-                if (!key.Value)
-                    return false;
-            return true;
+            return !locked;
         }
     }
     // Use this for initialization
@@ -32,21 +30,15 @@ public class Gate : MonoBehaviour {
         boxCollider.transform.localScale = new Vector3(boxCollider.transform.localScale.x, Mathf.Lerp(boxCollider.transform.localScale.y, targetHeight,Time.deltaTime), boxCollider.transform.localScale.z);
     }
     // add key
-    public void AddKey(Key key)
+    public void AddKey(Key ky)
     {
-        if (keys.ContainsKey(key))
-            keys[key] = false;
-        else
-            keys.Add(key, false);
-        Debug.Log(key);
+        key = ky;
+        locked = true;
     }
     // key found
 	public void KeyFound(Key key)
     {
-        if (keys.ContainsKey(key))
-            keys[key] = true;
-        if (!Unlocked)
-            return;
+        locked = false;
         targetHeight = 0.1f;
         boxCollider.enabled = false;
     }
@@ -54,7 +46,6 @@ public class Gate : MonoBehaviour {
     {
         if(collision.tag == "Player" && Unlocked)
         {
-            Debug.Log("gate passed");
             targetHeight = 0f;
             gatePassed = true;
         }
@@ -63,19 +54,12 @@ public class Gate : MonoBehaviour {
     // player dead
     public void OnPlayerDead()
     {
-        Debug.Log(gatePassed);
         if (!resetOnDeath || gatePassed)
             return;
         boxCollider.enabled = true;
         targetHeight = startHeight;
         boxCollider.transform.localScale = new Vector3(boxCollider.transform.localScale.x, targetHeight, boxCollider.transform.localScale.z);
-        Debug.Log(keys.Count);
-        
-        foreach (Key key in keys.Keys)
-        {
-            if(keys.ContainsKey(key))
-                keys[key] = false;
-            key.gameObject.SetActive(true);
-        }
+        locked = true;
+        key.gameObject.SetActive(true);
     }
 }

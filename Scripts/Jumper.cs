@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using GameJolt.API;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Jumper : MonoBehaviour {
@@ -10,16 +11,23 @@ public class Jumper : MonoBehaviour {
     public bool reloadOnDeath;
     public GameEvent onDeath;
     public SaveObject saveObject;
+
+    public AudioClip jump;
+    public AudioClip impact;
+    public AudioClip splat;
+
     private Rigidbody2D rb;
     private Vector3 startPos;
     private ParticleSystem ps;
     private Animator animator;
+    private AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
         ps = GetComponent<ParticleSystem>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         startPos = new Vector3(transform.position.x, transform.position.y);
     }
 
@@ -41,6 +49,8 @@ public class Jumper : MonoBehaviour {
             animator.SetTrigger("Jump");
         if (ps != null && (Input.GetButtonDown("JumpLeft") || Input.GetButtonDown("JumpRight")))
             ps.Play();
+        if (audioSource != null && (Input.GetButtonDown("JumpLeft") || Input.GetButtonDown("JumpRight")))
+            audioSource.PlayOneShot(jump);
 
     }
 
@@ -58,7 +68,11 @@ public class Jumper : MonoBehaviour {
                 onDeath.Raise();
             if (ps != null)
                 ps.Emit(1000);
-        }
+            if (audioSource != null)
+                audioSource.PlayOneShot(splat);
+
+        } else if (audioSource != null)
+            audioSource.PlayOneShot(impact);
     }
 
 }

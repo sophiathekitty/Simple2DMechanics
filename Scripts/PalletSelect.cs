@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using GameJolt.API;
 
 public class PalletSelect : MonoBehaviour {
+    public int trophyID;
+    public BoolVariable palletChanged;
     public PalletDatabase palletDatabase;
     public Button[] options;
 	// Use this for initialization
@@ -29,6 +32,20 @@ public class PalletSelect : MonoBehaviour {
 
     public void SetPallet(int pallet)
     {
+
+        Trophies.Unlock(trophyID, (bool success) => {
+            palletChanged.RuntimeValue = success;
+            if (success)
+            {
+                Debug.Log("Success!");
+            }
+            else
+            {
+                Debug.Log("Something went wrong");
+            }
+        });
+
+
 
         palletDatabase.currentPallet.RuntimeValue = pallet;
         PalletSwap swap = (PalletSwap)GameObject.FindObjectOfType(typeof(PalletSwap));
