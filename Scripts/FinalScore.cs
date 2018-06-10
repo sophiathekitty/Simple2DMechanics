@@ -28,8 +28,9 @@ public class FinalScore : MonoBehaviour {
                 Debug.Log(string.Format("Death Score Add {0}.", success ? "Successful" : "Failed"));
             });
 
-        if (bestTime.RuntimeValue > currentTime.RuntimeValue || bestTime.RuntimeValue >= 0f)
+        if (bestTime.RuntimeValue > currentTime.RuntimeValue || bestTime.RuntimeValue == bestTime.InitialValue)
         {
+
             bestTime.RuntimeValue = currentTime.RuntimeValue;
         }
 

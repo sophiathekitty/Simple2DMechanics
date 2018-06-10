@@ -10,13 +10,19 @@ public class CurrentLevel : MonoBehaviour {
     public bool setCurrentLevel = true;
     public bool resetCurrentLevel = false;
     public SaveObject saveObject;
+    public LevelPlaylist playlist;
     // Use this for initialization
     void Start()
     {
         Scene scene = SceneManager.GetActiveScene();
-        Debug.Log(currentLevel.RuntimeValue);
+
+
+        //LevelDetails level = playlist.GetLevel(scene.name);
+        int lvl = playlist.GetIndex(scene.name);
+        if (lvl < 1)
+            lvl = 1;
         if (currentLevel != null && setCurrentLevel)
-            currentLevel.RuntimeValue = scene.buildIndex;
+            currentLevel.RuntimeValue = lvl;
         else if (currentLevel != null && resetCurrentLevel)
             currentLevel.RuntimeValue = currentLevel.InitialValue;
         if (saveObject != null)

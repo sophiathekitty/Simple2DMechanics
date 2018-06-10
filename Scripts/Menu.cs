@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour {
     public FloatVariable volume;
     public FloatVariable music;
     public FloatVariable sounds;
+    public LevelPlaylist playlist;
     private void Awake()
     {
         if (saveObject != null)
@@ -52,7 +53,9 @@ public class Menu : MonoBehaviour {
     public void LoadLevel(int level)
     {
         if(level <= currentLevel.RuntimeValue)
-            SceneManager.LoadScene(level);
+            SceneManager.LoadScene(playlist.NextLevel(level));
+        if (level < 1)
+            SceneManager.LoadScene(1);
     }
 
     public void ShowTrophies()

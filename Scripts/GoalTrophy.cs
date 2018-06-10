@@ -13,6 +13,7 @@ public class GoalTrophy : MonoBehaviour {
     public BoolVariable trophy50Unlocked;
     public int level75;
     public BoolVariable trophy75Unlocked;
+    public IntVariable currentLevel;
     // Use this for initialization
     void Start () {
 		
@@ -28,7 +29,7 @@ public class GoalTrophy : MonoBehaviour {
         if (GameJoltAPI.Instance.CurrentUser == null)
             return;
         Scene scene = SceneManager.GetActiveScene();
-        if (scene.buildIndex == 25 && !trophy25Unlocked.RuntimeValue)
+        if (currentLevel.RuntimeValue == 24 && !trophy25Unlocked.RuntimeValue)
             Trophies.Unlock(level25, (bool success) => {
                 trophy25Unlocked.RuntimeValue = success;
                 if (success)
@@ -41,12 +42,12 @@ public class GoalTrophy : MonoBehaviour {
                 }
             });
 
-        if (scene.buildIndex == 50 && !trophy50Unlocked.RuntimeValue)
+        if (currentLevel.RuntimeValue == 49 && !trophy50Unlocked.RuntimeValue)
             Trophies.Unlock(level50, (bool success) => {
                 trophy50Unlocked.RuntimeValue = success;
                 if (success)
                 {
-                    Debug.Log("Success!");
+                    //Debug.Log("Success!");
                 }
                 else
                 {
@@ -54,12 +55,12 @@ public class GoalTrophy : MonoBehaviour {
                 }
             });
 
-        if (scene.buildIndex == 75 && !trophy75Unlocked.RuntimeValue)
+        if (currentLevel.RuntimeValue == 74 && !trophy75Unlocked.RuntimeValue)
             Trophies.Unlock(level75, (bool success) => {
                 trophy75Unlocked.RuntimeValue = success;
                 if (success)
                 {
-                    Debug.Log("Success!");
+                    //Debug.Log("Success!");
                 }
                 else
                 {
