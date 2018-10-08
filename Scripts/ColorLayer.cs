@@ -6,20 +6,27 @@ using TMPro;
 using UnityEngine.UI;
 
 public class ColorLayer : MonoBehaviour {
+    public static IntVariable CurrentLevel;
     public ColorPallet.Layer layer;
     public ColorPallet.Layer highlight = ColorPallet.Layer.highlight;
     public ColorPallet pallet;
     public IntVariable currentLevel;
 
     // Use this for initialization
+    private void Awake()
+    {
+        currentLevel = CurrentLevel;
+        ApplyPallet();
+    }
     void Start() {
+        currentLevel = CurrentLevel;
         ApplyPallet();
     }
 
     public void ApplyPallet()
     {
         float time;
-        if (currentLevel != null)
+        if (currentLevel != null && false)
             time = ((float)currentLevel.RuntimeValue - 1f) / ((float)SceneManager.sceneCountInBuildSettings - 1f);
         else
         {
