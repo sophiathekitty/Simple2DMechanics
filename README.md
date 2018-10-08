@@ -1,1 +1,2 @@
 # Simple2DMechanics
+this is basically the source code for [Just Jump](https://gamejolt.com/games/justjump/343805) i should see about doing proper repos for my game projects that include all of the project files including the repos they're using. save for the unity assets store stuff i had to pay money for. i dunno how to handle that sorta thing. and same for some of the unity packages.... or really anything that i add through unity.
